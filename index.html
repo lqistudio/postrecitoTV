@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Morado2Bot — Registro</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #0d0d0d;
+      color: white;
+      text-align: center;
+      padding: 50px;
+    }
+    button {
+      background-color: #9146FF;
+      border: none;
+      padding: 15px 30px;
+      border-radius: 8px;
+      color: white;
+      font-size: 18px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #772ce8;
+    }
+  </style>
+</head>
+<body>
+  <h1>🟣 Morado2Bot</h1>
+  <p>Conecta tu cuenta de Twitch para activar Morado2Bot en tu canal.</p>
+  <button id="connectBtn">Conectar con Twitch</button>
+
+  <script>
+    const clientId = "pf318kemo81g6advf3ovel5tj1i8dl";
+    const redirectUri = "https://weer-nedra-mnemic.ngrok-free.dev";
+    const scopes = [
+      "chat:read",
+      "chat:edit",
+      "moderator:manage:chat_messages",
+      "moderator:manage:banned_users",
+      "moderator:manage:shoutouts",
+      "channel:manage:broadcast",
+      "user:read:follows",
+      "user:read:email"
+    ].join("+");
+
+    document.getElementById("connectBtn").onclick = () => {
+      const channel = prompt("Ingresa el nombre de tu canal (sin @):");
+      if (!channel) return;
+      const authUrl = `https://id.twitch.tv/oauth2/authorize?response_type=code&client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${scopes}&state=${Math.random().toString(36).substring(2)}&force_verify=true&channel=${channel}`;
+      window.location.href = authUrl;
+    };
+  </script>
+</body>
+</html>
